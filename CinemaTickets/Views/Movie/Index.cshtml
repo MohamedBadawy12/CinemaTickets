@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Movies>
+
+@{
+	ViewData["Title"] = "List of Movies";
+}
+
+<div class="row">
+	@foreach (var item in Model)
+	{
+		<div class="col-md-4 col-xs-6 border-primary mb-3">
+			<div class="card mb-3" style="max-width:540px">
+				<div class="row g-0">
+					<div class="col-md-12">
+						<div class="card-header text-white bg-primary ">
+							<p class="card-text">
+								<h4 class="card-title" style="padding: 0px 0px 0px 20px">
+									@item.Name
+									<a class="btn btn-outline-warning text-white float-right" style="margin:0px 0px 0px 20px"
+									   asp-controller="Movie" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square">Update</i></a>
+									<a class="btn btn-danger text-white float-right"
+								   asp-controller="Movie" asp-action="Delete" asp-route-id="@item.Id" onclick="ConfirmDelete()"><i class="bi bi-pencil-square">Delete</i></a>
+								</h4>
+							</p>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<img src="@item.ImageUrl" width="100%" alt="@item.Name">
+					</div>
+					<div class="col-md-6">
+						<div class="card-body">
+							<p class="card-text text-white"><b>Description:</b> @item.Description</p>
+							<p class="card-text text-white"><b>Cinema:</b> @item.Cinema.Name</p>
+							<p class="card-text text-white"><b>Catagory:</b> @item.MoviesCategory</p>
+							<p class="card-text text-white"><b>StartTime:</b> @item.TimeDate.StartTime.ToString("dd MMM yy")</p>
+							<p class="card-text text-white"><b>EndTime:</b> @item.TimeDate.EndTime.ToString("dd MMM yy")</p>
+							<p class="card-text text-white">
+								<b>Status: </b>
+								@if(DateTime.Now>=item.TimeDate.StartTime && DateTime.Now<= item.TimeDate.EndTime)
+								{
+									<span class="budge bg-success text-white">AVAILABLE</span>
+								}
+								else if (DateTime.Now >item.TimeDate.EndTime)
+								{
+									<span class="budge bg-danger text-white">EXPIRED</span>
+								}
+								else
+								{
+									<span class="budge bg-primary text-white">SOON</span>
+								}
+							</p>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="card-footer">
+							<p class="card-text">
+								<a class="btn btn-success text-white @((DateTime.Now > item.TimeDate.EndTime) ? "disable":"")"
+								 asp-controller="Orders" asp-action="AddItemToCart" asp-route-id="@item.Id">
+									<i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))
+								</a>
+								<a class="btn btn-outline-primary float-right " asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">
+									<i class="bi bi-eye-fill"></i>Show Details
+								</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+</div>
+
+<script>
+	function ConfirmDelete() {
+		document.getElementById("");
+		var accept = confirm("Are You Sure to delete this movie?");
+		if (accept == false) {
+			event.preventDefault();
+		}
+	}
+</script>
