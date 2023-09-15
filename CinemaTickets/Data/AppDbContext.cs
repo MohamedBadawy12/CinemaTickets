@@ -1,9 +1,10 @@
 ﻿using CinemaTickets.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CinemaTickets.Data
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext:IdentityDbContext<ApplicationUser>
     {
         public DbSet<Actor>Actors { get; set; }
         public DbSet<Movies> Movies { get; set; }

@@ -1,8 +1,11 @@
 using CinemaTickets.Data;
 using CinemaTickets.Data.Services;
+using CinemaTickets.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +30,11 @@ namespace CinemaTickets
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
+            services.AddSession(c =>
+            {
+                c.IdleTimeout = TimeSpan.FromMinutes(60);
+            });
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer
             (Configuration.GetConnectionString("DefaultConnectionString")));
             services.AddControllersWithViews();
@@ -36,6 +44,14 @@ namespace CinemaTickets
 			services.AddTransient<IProducerServices, ProducerService>();
 			services.AddTransient<ICinemaService, CinemaServices>();
 
+            //Authentication and authorization
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme=CookieAuthenticationDefaults.AuthenticationScheme;
+            });
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +72,7 @@ namespace CinemaTickets
 
             app.UseRouting();
 			
-
+            app.UseAuthentication();
 			app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -65,7 +81,7 @@ namespace CinemaTickets
                     name: "default",
                     pattern: "{controller=Movie}/{action=Index}/{id?}");
             });
-            AppDbInitilizer.Seed(app);
+            AppDbInitilizer.Seed(app);       
         }
     }
 }

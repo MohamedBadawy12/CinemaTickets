@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CinemaTickets.Controllers
 {
@@ -15,6 +16,7 @@ namespace CinemaTickets.Controllers
 		{
 			_service = service;
 		}
+		[AllowAnonymous]
 		public async Task<IActionResult> Index()
         {
 			var AllCinemas = await _service.GetAllAsync();
@@ -34,6 +36,7 @@ namespace CinemaTickets.Controllers
 			await _service.AddAsync(cinema);
 			return RedirectToAction(nameof(Index));
 		}
+		[AllowAnonymous]
 		public async Task<IActionResult> Details(int id)
 		{
 			var CinemaDetails = await _service.GetByIdAsync(id);

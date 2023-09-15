@@ -13,39 +13,47 @@
 					<th>Profile Picture</th>
 					<th>FullName</th>
 					<th>Biography</th>
-					<th>Action</th>
+					@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+					{
+						<th>Action</th>
+					}
 				</tr>
 			</thead>
 			<tbody>
 				@foreach (var item in Model)
 				{
 					<tr>
-						<td class="align-middle">
+						<td class="align-middle text-center">
 							<img class="rounded-circle" src="@item.ProfilePictureUrl" alt="@item.FullName" style="max-width:150px">
 						</td>
-						<td class="align-middle">
+						<td class="align-middle text-center">
 							@item.FullName
 						</td>
-						<td class="align-middle">
+						<td class="align-middle text-center">
 							@item.Bio
 						</td>
-						<td class="align-middle">
-							<a class="btn btn-outline-primary" asp-controller="Producer" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Edit</a> |
-							<a class="btn btn-outline-info" asp-controller="Producer" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i>Details</a> |
-							<a class="btn btn-outline-danger text-white" asp-controller="Producer" asp-action="Delete" asp-route-id="@item.Id" onclick="ConfirmDelete()"><i class="bi bi-trash"></i>Delete</a>
-						</td>
+						@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+						{
+							<td class="align-middle">
+								<a class="btn btn-outline-primary" asp-controller="Producer" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Edit</a> |
+								<a class="btn btn-outline-info" asp-controller="Producer" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i>Details</a> |
+								<a class="btn btn-outline-danger text-white" asp-controller="Producer" asp-action="Delete" asp-route-id="@item.Id" onclick="ConfirmDelete()"><i class="bi bi-trash"></i>Delete</a>
+							</td>
+						}
 					</tr>
 				}
 			</tbody>
 		</table>
 	</div>
 </div>
-
-<div style="position:fixed; right:25px; bottom:65px;" class="text-white">
-	<a asp-controller="Producer" asp-action="Create" class="btn btn-success">
-		<i class="bi bi-plus-circle"></i>Add New
-	</a>
-</div>
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+	<div style="position:fixed; right:25px; bottom:65px;" class="text-white">
+		<a asp-controller="Producer" asp-action="Create" class="btn btn-success">
+			<i class="bi bi-plus-circle"></i>Add New
+		</a>
+	</div>
+}
 <script>
 	function ConfirmDelete() {
 		document.getElementById("");

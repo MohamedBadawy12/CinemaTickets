@@ -1,6 +1,7 @@
 ﻿using CinemaTickets.Data;
 using CinemaTickets.Data.Services;
 using CinemaTickets.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -17,7 +18,8 @@ namespace CinemaTickets.Controllers
         {
             _service = service;
         }
-        public async Task<IActionResult> Index()
+		[AllowAnonymous]
+		public async Task<IActionResult> Index()
         {
             var AllActors = await _service.GetAllAsync();
             return View(AllActors);
@@ -36,6 +38,7 @@ namespace CinemaTickets.Controllers
 			await _service.AddAsync(actor);
 			return RedirectToAction(nameof(Index));
 		}
+		[AllowAnonymous]
 		public async Task<IActionResult> Details(int id)
 		{
             var actorDetails = await _service.GetByIdAsync(id);

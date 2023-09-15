@@ -15,10 +15,13 @@
 							<p class="card-text">
 								<h4 class="card-title" style="padding: 0px 0px 0px 20px">
 									@item.Name
-									<a class="btn btn-outline-warning text-white float-right" style="margin:0px 0px 0px 20px"
-									   asp-controller="Movie" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square">Update</i></a>
-									<a class="btn btn-danger text-white float-right"
-								   asp-controller="Movie" asp-action="Delete" asp-route-id="@item.Id" onclick="ConfirmDelete()"><i class="bi bi-pencil-square">Delete</i></a>
+									@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+									{
+										<a class="btn btn-outline-warning text-white float-right" style="margin:0px 0px 0px 20px"
+											 asp-controller="Movie" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square">Update</i></a>
+										<a class="btn btn-danger text-white float-right"
+											asp-controller="Movie" asp-action="Delete" asp-route-id="@item.Id" onclick="ConfirmDelete()"><i class="bi bi-pencil-square">Delete</i></a>
+									}
 								</h4>
 							</p>
 						</div>

@@ -20,6 +20,7 @@ namespace CinemaTickets.Controllers
 		{
 			_Service = Service;
 		}
+		[AllowAnonymous]
 		public async Task<IActionResult> Index()
         {
 			var AllMovie = await _Service.GetAllAsync(c=>c.Cinema);
@@ -47,7 +48,8 @@ namespace CinemaTickets.Controllers
 			await _Service.AddNewMovieAsync(movie);
 			return RedirectToAction(nameof(Index));
 		}
-        public async Task<IActionResult> Details(int id)
+		[AllowAnonymous]
+		public async Task<IActionResult> Details(int id)
 		{
 			var movieDetails = await _Service.GetMovieByIdAsync(id);
 			return View(movieDetails);
@@ -97,6 +99,7 @@ namespace CinemaTickets.Controllers
 			await _Service.UpddteMovieAsync(movie);
 			return RedirectToAction(nameof(Index));
         }
+		[AllowAnonymous]
 		public async Task <IActionResult>Searching(string search)
 		{
 			var allMovies=await _Service.GetAllAsync(c=>c.Cinema);
