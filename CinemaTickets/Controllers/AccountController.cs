@@ -1,5 +1,4 @@
 ﻿using CinemaTickets.Data;
-using CinemaTickets.Data.StaticUserRoles;
 using CinemaTickets.Data.ViewModelData;
 using CinemaTickets.Models;
 using Microsoft.AspNetCore.Identity;
@@ -11,13 +10,13 @@ namespace CinemaTickets.Controllers
 {
 	public class AccountController : Controller
 	{
-		private readonly UserManager<ApplicationUser> _userManger;
+		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly SignInManager<ApplicationUser> _signInManager;
 		private readonly AppDbContext _context;
 
 		public AccountController(UserManager<ApplicationUser> userManger, SignInManager<ApplicationUser> signInManager, AppDbContext context)
 		{
-			_userManger = userManger;
+			_userManager = userManger;
 			_signInManager = signInManager;
 			_context = context;
 		}
@@ -36,10 +35,11 @@ namespace CinemaTickets.Controllers
 					Email = registerViewModel.Email,
 					UserName = registerViewModel.Email
 				};
-				var result = await _userManger.CreateAsync(newUser, registerViewModel.Password);
+				var result = await _userManager.CreateAsync(newUser, registerViewModel.Password);
 				if (result.Succeeded)
 				{
-					await _signInManager.SignInAsync(newUser, false);//create cookie
+					await _userManager.AddToRoleAsync(newUser, "User");
+					//await _signInManager.SignInAsync(newUser, false);//create cookie
 					return View("RegisterCompleted");
 				}
 				else
@@ -53,7 +53,40 @@ namespace CinemaTickets.Controllers
 			return View (registerViewModel);
 		
 		}
+		//--------------------------------------------------------
+		public IActionResult AddAdmin()
+		{
+			return View();
+		}
+		[HttpPost]
+		public async Task<IActionResult> AddAdmin(RegisterViewModel registerViewModel)
+		{
+			if (ModelState.IsValid == true)
+			{
+				var newUser = new ApplicationUser()
+				{
+					FullName = registerViewModel.FullName,
+					Email = registerViewModel.Email,
+					UserName = registerViewModel.Email
+				};
+				var result = await _userManager.CreateAsync(newUser, registerViewModel.Password);
+				if (result.Succeeded)
+				{
+					await _userManager.AddToRoleAsync(newUser, "Admin");
+					//await _signInManager.SignInAsync(newUser, false);//create cookie
+					return View("RegisterCompleted");
+				}
+				else
+				{
+					foreach (var error in result.Errors)
+					{
+						ModelState.AddModelError("", error.Description);
+					}
+				}
+			}
+			return View(registerViewModel);
 
+		}
 
 
 		public IActionResult Login()
@@ -65,7 +98,7 @@ namespace CinemaTickets.Controllers
 		{
 			if(ModelState.IsValid==true) 
 			{
-				var user=await _userManger.FindByEmailAsync(loginViewModel.Email);
+				var user=await _userManager.FindByEmailAsync(loginViewModel.Email);
 				if (user != null)
 				{
 					var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password,false,false);

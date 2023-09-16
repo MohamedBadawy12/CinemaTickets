@@ -1,0 +1,32 @@
+﻿@using CinemaTickets.Data.ViewModelData;
+@model IEnumerable<RoleViewModel>
+
+@{
+	ViewData["Title"] = "Lis of all users";
+}
+<div class="row">
+	<div class="col-md-6 offset-3">
+		<P>
+			<h4>
+				List Of All Users
+			</h4>
+		</P>
+		<table class="table">
+			<thead>
+				<tr class="text-center">
+					<th>Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model)
+				{
+					<tr>
+						<td class="align-middle">
+							@item.RoleName
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
