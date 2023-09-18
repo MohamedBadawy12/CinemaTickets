@@ -33,13 +33,11 @@
 						</td>
 						@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 						{
-							<td class="align-middle">
+							<td class="align-middle text-center" >
 								<a class="btn btn-outline-primary" asp-controller="Cinema" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Edit</a> |
-								<a class="btn btn-outline-info" asp-controller="Cinema" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i>Details</a> |
 								<a class="btn btn-outline-danger text-white" asp-controller="Cinema" asp-action="Delete" asp-route-id="@item.Id" onclick="ConfirmDelete()"><i class="bi bi-trash"></i>Delete</a>
 							</td>
 						}
-						
 					</tr>
 				}
 			</tbody>

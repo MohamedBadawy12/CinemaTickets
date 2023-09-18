@@ -22,8 +22,10 @@ namespace CinemaTickets.Data.Config
 
             builder.Property(x=>x.ImageUrl)
                 .IsRequired();
+			builder.Property(x => x.Triler)
+				.IsRequired();
 
-            builder.OwnsOne(x => x.TimeDate, td =>
+			builder.OwnsOne(x => x.TimeDate, td =>
             {
                 td.Property(p => p.StartTime).HasColumnType("DateTime").HasColumnName("StartTime");
                 td.Property(p => p.EndTime).HasColumnType("DateTime").HasColumnName("EndTime");

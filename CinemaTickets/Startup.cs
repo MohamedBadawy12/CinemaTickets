@@ -43,6 +43,7 @@ namespace CinemaTickets
             services.AddTransient<IMovieService, MovieServices>();
 			services.AddTransient<IProducerServices, ProducerService>();
 			services.AddTransient<ICinemaService, CinemaServices>();
+            services.AddTransient<IOrderServices, OrderServices>();
 
             //Authentication and authorization
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();

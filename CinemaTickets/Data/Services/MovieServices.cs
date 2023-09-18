@@ -25,6 +25,7 @@ namespace CinemaTickets.Data.Services
 				Description = data.Description,
 				Price = data.Price,
 				ImageUrl = data.ImageUrl,
+				Triler =data.Triler,
 				CinemaId = data.CinemaId,
 				TimeDate = new Models.TimeDate { StartTime = data.TimeDate.StartTime,
 					EndTime = data.TimeDate.EndTime },
@@ -75,6 +76,7 @@ namespace CinemaTickets.Data.Services
 				movieUpdtae.Description = data.Description;
 				movieUpdtae.Price = data.Price;
 				movieUpdtae.ImageUrl = data.ImageUrl;
+				movieUpdtae.Triler = data.Triler;
 				movieUpdtae.CinemaId = data.CinemaId;
 				movieUpdtae.TimeDate = new Models.TimeDate
 				{

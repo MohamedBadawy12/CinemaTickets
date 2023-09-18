@@ -14,6 +14,7 @@ namespace CinemaTickets.Models
         public string Description { get; set; }
         public decimal Price { get; set; }
         public string ImageUrl { get; set; }
+        public string Triler { get; set; }
         public TimeDate TimeDate { get; set; }
         public MoviesCategory MoviesCategory { get; set; }
         //public List<int> ActorId { get; set; }

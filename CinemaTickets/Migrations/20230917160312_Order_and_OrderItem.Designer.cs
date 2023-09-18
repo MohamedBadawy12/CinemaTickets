@@ -4,14 +4,16 @@ using CinemaTickets.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CinemaTickets.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230917160312_Order_and_OrderItem")]
+    partial class Order_and_OrderItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -202,54 +204,6 @@ namespace CinemaTickets.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("CinemaTickets.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("CinemaTickets.Models.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MovieId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderItems");
-                });
-
             modelBuilder.Entity("CinemaTickets.Models.Producer", b =>
                 {
                     b.Property<int>("Id")
@@ -275,29 +229,6 @@ namespace CinemaTickets.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("producers");
-                });
-
-            modelBuilder.Entity("CinemaTickets.Models.ShoppingCartItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MoviesId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ShoppingCartId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MoviesId");
-
-                    b.ToTable("ShoppingCartItems");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -494,43 +425,6 @@ namespace CinemaTickets.Migrations
                     b.Navigation("TimeDate");
                 });
 
-            modelBuilder.Entity("CinemaTickets.Models.Order", b =>
-                {
-                    b.HasOne("CinemaTickets.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("CinemaTickets.Models.OrderItem", b =>
-                {
-                    b.HasOne("CinemaTickets.Models.Movies", "Movies")
-                        .WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CinemaTickets.Models.Order", "Order")
-                        .WithMany("Items")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Movies");
-
-                    b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("CinemaTickets.Models.ShoppingCartItem", b =>
-                {
-                    b.HasOne("CinemaTickets.Models.Movies", "Movies")
-                        .WithMany()
-                        .HasForeignKey("MoviesId");
-
-                    b.Navigation("Movies");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -595,11 +489,6 @@ namespace CinemaTickets.Migrations
             modelBuilder.Entity("CinemaTickets.Models.Movies", b =>
                 {
                     b.Navigation("Actor_Movie");
-                });
-
-            modelBuilder.Entity("CinemaTickets.Models.Order", b =>
-                {
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("CinemaTickets.Models.Producer", b =>

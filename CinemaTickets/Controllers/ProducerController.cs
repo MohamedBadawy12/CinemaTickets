@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CinemaTickets.Controllers
 {
-    public class ProducerController : Controller
+	[Authorize(Roles = "Admin")]
+	public class ProducerController : Controller
     {
 		private readonly IProducerServices _service;
 		public ProducerController(IProducerServices service)

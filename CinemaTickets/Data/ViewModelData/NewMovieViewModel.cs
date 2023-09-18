@@ -22,7 +22,10 @@ namespace CinemaTickets.Data.ViewModelData
 		[Display(Name = "Image Url")]
 		[Required(ErrorMessage = "Movie Image Url Is Required")]
 		public string ImageUrl { get; set; }
-		public TimeDate TimeDate { get; set; }
+        [Display(Name = "Triler Url")]
+        [Required(ErrorMessage = "Movie Triler Is Required")]
+        public string Triler { get; set; }
+        public TimeDate TimeDate { get; set; }
 		[Display(Name = "Select Category")]
 		[Required(ErrorMessage = "Movie Category is required")]
 		public MoviesCategory MoviesCategory { get; set; }

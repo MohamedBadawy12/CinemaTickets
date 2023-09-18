@@ -11,7 +11,10 @@ namespace CinemaTickets.Data
         public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<Actor_Movie> Actor_Movies { get; set; }
         public DbSet<Producer> producers { get; set; }
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) 
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+		public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) 
         { 
 
         }

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace CinemaTickets.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class ActorController : Controller
     {
         private readonly IActorService _service;

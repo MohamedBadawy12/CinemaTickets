@@ -5,11 +5,14 @@
 	<div class="card-body">
 		<h3 class="card-title">@Model.Name</h3>
 		<p class="card-text">@Model.Description</p>
-		<a class="btn btn-danger"
+		@if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+		{
+			<a class="btn btn-danger"
 		   asp-action="Delete"
 		   asp-controller="Cinema"
 		   asp-route-id="@Model.Id"
-	 onclick="ConfirmDelete()">Delete</a>
+		 onclick="ConfirmDelete()">Delete</a>
+		}
 	</div>
 </div>
 

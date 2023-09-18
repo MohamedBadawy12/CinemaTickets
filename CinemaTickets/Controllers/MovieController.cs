@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 
 namespace CinemaTickets.Controllers
 {
-    public class MovieController : Controller
+	[Authorize(Roles = "Admin")]
+	public class MovieController : Controller
     {
 		private readonly IMovieService _Service;
 		public MovieController(IMovieService Service)
@@ -66,6 +67,7 @@ namespace CinemaTickets.Controllers
 				Name = movieDetails.Name,
 				Description = movieDetails.Description,
 				ImageUrl = movieDetails.ImageUrl,
+				Triler = movieDetails.Triler,
 				Price = movieDetails.Price,
 				TimeDate=new Data.ViewModelData.TimeDate()
 				{
