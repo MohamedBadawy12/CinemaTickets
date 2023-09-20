@@ -1,6 +1,25 @@
 ﻿@model Cinema
 
-<div class="card" style="width:20rem;margin:20px 550px 24px 550px">
+<div class="row text">
+	<div class="col-md-7 offset-4">
+		<img class="rounded-circle" src="@Model.Logo" alt="image" style="max-width:250px">
+		<br />
+		<div>
+			<h5>@Model.Name</h5>
+			<p> @Model.Description</p>
+			@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+			{
+				<a class="btn btn-danger"
+			   asp-action="Delete"
+			   asp-controller="Cinema"
+			   asp-route-id="@Model.Id"
+				 onclick="ConfirmDelete()">Delete</a>
+			}
+		</div>
+	</div>
+</div>
+
+@*<div class="card" style="width:20rem;margin:20px 550px 24px 550px">
 	<img class="card-img-top" src="@Model.Logo" alt="image" style="width:100%">
 	<div class="card-body">
 		<h3 class="card-title">@Model.Name</h3>
@@ -14,7 +33,7 @@
 		 onclick="ConfirmDelete()">Delete</a>
 		}
 	</div>
-</div>
+</div>*@
 
 <script>
 	function ConfirmDelete() {

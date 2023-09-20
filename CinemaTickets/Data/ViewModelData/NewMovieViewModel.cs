@@ -16,7 +16,7 @@ namespace CinemaTickets.Data.ViewModelData
 		[Display(Name = "Description")]
 		[Required(ErrorMessage = "Movie Description Is Required")]
 		public string Description { get; set; }
-		[Display(Name = "Price")]
+        [Display(Name = "Price")]
 		[Required(ErrorMessage = "Movie Price Is Required")]
 		public decimal Price { get; set; }
 		[Display(Name = "Image Url")]

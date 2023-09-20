@@ -4,7 +4,88 @@
 	ViewData["Title"] = "Movie details";
 }
 
-<div class="row">
+<div class="container">
+    <div class="row align-items-center position-relative">
+        <div class="col-xl-3 col-lg-4">
+            <img src="@Model.ImageUrl" width="100%" alt="@Model.Name">
+        </div>
+        <div class="col-xl-6 col-lg-8">
+            <h5 style="color:yellow">New Episodes</h5>
+            <h2>
+                @Model.Name
+            </h2>
+             <div class="d-flex flex-row align-items-center mb-3" >
+                    <div style="padding-right:10px">
+                        @if (DateTime.Now >= Model.TimeDate.StartTime && DateTime.Now <= Model.TimeDate.EndTime)
+                        {
+                            <span class="badge bg-success text-white">AVAILABLE</span>
+                        }
+                        else if (DateTime.Now > Model.TimeDate.EndTime)
+                        {
+                            <span class="badge bg-danger text-white">EXPIRED</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-primary text-white">SOON</span>
+                        }
+                    </div>
+                    <div style="padding-right:10px; color:gainsboro">
+                        <span>@Model.MoviesCategory</span>
+                    </div>
+                    <div style="padding-right:10px">
+                        <i class="bi bi-person-video3" style="color:whitesmoke"></i>
+                        <a asp-controller="Cinema" asp-action="Details" asp-route-id="@Model.CinemaId" style="text-decoration:none; color:yellow">
+                            @Model.Cinema.Name
+                        </a>
+                    </div>
+                    <div style="padding-right:10px">
+                        <i class="bi bi-file-person" style="color:whitesmoke"></i>
+                        <a asp-controller="Producer" asp-action="Details" asp-route-id="@Model.ProducerId" style="text-decoration:none; color:yellow">
+                            @Model.Producer.FullName
+                        </a>
+                    </div>
+                    <div style="padding-right:10px">
+                        <i class="bi bi-calendar-check" style="color:limegreen"></i>
+                        @Model.TimeDate.StartTime.ToString("dd MMM yy")
+                    </div style="padding-right:21px">
+                    <div>
+                        <i class="bi bi-calendar-x" style="color:red"></i>
+                        @Model.TimeDate.EndTime.ToString("dd MMM yy")
+                    </div>
+             </div>   
+            <div class="align-items-center mb-6">
+                    <div style="color:gainsboro">
+                        <p>@Model.Description</p>
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-3" >
+                        @foreach (var actor in Model.Actor_Movie)
+                        {
+                            <div class="column text-center" style="padding-left:20px">
+                                <img class="border-info rounded-circle" src="@actor.Actor.ProfilePictureUrl" style="max-width: 80px" />
+                                <br>
+                                 <a asp-controller="Actor" asp-action="Details" asp-route-id="@actor.ActorId" 
+                                 style="text-decoration:none; color:white"><b>@actor.Actor.FullName</b></a>
+                            </div>
+                        }      
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-3">
+                         <a class="btn btn-success text-white @((DateTime.Now > Model.TimeDate.EndTime) ? "disabled" : "")"
+                             style="margin-right:20px"
+                            asp-controller="Order"
+                            asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-plus"></i> <b>Add to Cart (Price @Model.Price.ToString("c"))</b></a>
+                         <a class="btn btn-danger" href="@Model.Triler"><i class="bi bi-youtube"></i> <b>Watch Triler</b></a>
+                    </div>
+                    <div>
+                        <a class="btn btn-outline-primary float-right" asp-action="Index">
+                                <b>Back to List</b>
+                         </a>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="row">
     <div class="col-md-8 offset-2">
         <div class="card mb-12">
             <div class="row g-0">
@@ -57,14 +138,7 @@
                             <b>Actors: </b>
                             <hr />
                             <div class="row g-0 offset-2">
-                                @foreach (var actor in Model.Actor_Movie)
-                                {
-                                    <div class="row text-center">
-                                        <img class="border-info rounded-circle" src="@actor.Actor.ProfilePictureUrl" style="max-width: 150px" />
-                                        <br />
-                                        <a asp-controller="Actor" asp-action="Details" asp-route-id="@actor.ActorId">@actor.Actor.FullName</a>
-                                    </div>
-                                }
+                                
                             </div>
                         </p>
 
@@ -74,16 +148,16 @@
                     <div class="card-footer">
                         <p class="card-text">
                             <a class="btn btn-outline-primary float-right" asp-action="Index">
-                                Back to List
+                                <b>Back to List</b>
                             </a>
                             <a class="btn btn-success text-white @((DateTime.Now > Model.TimeDate.EndTime) ? "disabled" : "")"
                                asp-controller="Orders"
-                               asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-plus"></i> Add to Cart (Price @Model.Price.ToString("c"))</a>
-                            <a class="btn btn-warning" href="@Model.Triler">Movie Triler</a>
+                               asp-action="AddItemToShoppingCart" asp-route-id="@Model.Id"><i class="bi bi-cart-plus"></i> <b>Add to Cart (Price @Model.Price.ToString("c"))</b></a>
+                            <a class="btn btn-danger" href="@Model.Triler"><i class="bi bi-youtube"></i> <b>Watch Triler</b></a>
                         </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div>*@

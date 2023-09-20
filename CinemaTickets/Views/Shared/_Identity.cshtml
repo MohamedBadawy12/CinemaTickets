@@ -6,7 +6,7 @@
 	<span style="padding:5px;"></span>
 	<div class="dropdown" style="padding-right:35px">
 		<button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown" aria-expanded="false">
-			<i class="bi bi-person-badge"></i> Register
+			<i class="bi bi-list"></i> Register
 		</button>
 		@*<a class="btn btn-outline-success my-2 my-sm-0" asp-controller="Account" asp-action="Register" data-toggle="dropdown" aria-expanded="false">
 			<i class="bi bi-person-plus"></i> Register
@@ -14,11 +14,13 @@
 		<ul class="dropdown-menu" aria-labelledby="profile-btn">
 			<li>
 				<a class="dropdown-item" asp-controller="Account" asp-action="Register">
-					<i class="bi bi-list"></i> Register User
+					<i class="bi bi-person-badge"></i> Register User
 				</a>
 			</li>
 			<li>
-				<a class="dropdown-item" asp-controller="Account" asp-action="AddAdmin">Register Admin</a>
+				<a class="dropdown-item" asp-controller="Account" asp-action="CodeToRegister">
+					<i class="bi bi-person-badge"></i>Register Admin
+				</a>
 			</li>
 			
 		</ul>
@@ -28,7 +30,7 @@
 else{
 	<div class="dropdown">
 		<button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown" aria-expanded="false">
-			<i class="bi bi-person-badge"></i> Hello @User.Identity.Name
+			<i class="bi bi-person-badge"></i> @User.Identity.Name
 		</button>
 		<ul class="dropdown-menu" aria-labelledby="profile-btn">
 			<li>

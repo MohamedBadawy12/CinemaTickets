@@ -14,7 +14,8 @@ namespace CinemaTickets.Data.Config
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(100).IsRequired();
 
-            builder.Property(x => x.Description)
+
+			builder.Property(x => x.Description)
                 .HasColumnType("VARCHAR")
                 .HasMaxLength(250).IsRequired();
 
@@ -22,6 +23,7 @@ namespace CinemaTickets.Data.Config
 
             builder.Property(x=>x.ImageUrl)
                 .IsRequired();
+
 			builder.Property(x => x.Triler)
 				.IsRequired();
 

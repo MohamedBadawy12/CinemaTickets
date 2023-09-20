@@ -35,9 +35,9 @@
 						@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 						{
 							<td class="align-middle text-center">
-								<a class="btn btn-outline-primary"  asp-controller="Producer" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Edit</a> |
-								<a class="btn btn-outline-info" asp-controller="Producer" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i>Details</a> |
-								<a class="btn btn-outline-danger text-white" asp-controller="Producer" asp-action="Delete" asp-route-id="@item.Id" onclick="ConfirmDelete()"><i class="bi bi-trash"></i>Delete</a>
+								<a class="btn btn-outline-primary"  asp-controller="Producer" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i> Edit</a> |
+								<a class="btn btn-outline-info" asp-controller="Producer" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i> Details</a> |
+								<a class="btn btn-outline-danger text-white" asp-controller="Producer" asp-action="Delete" asp-route-id="@item.Id" onclick="ConfirmDelete()"><i class="bi bi-trash"></i> Delete</a>
 							</td>
 						}
 					</tr>

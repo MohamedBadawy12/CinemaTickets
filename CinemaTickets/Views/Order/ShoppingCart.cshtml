@@ -1,0 +1,69 @@
+﻿@using CinemaTickets.Data.ViewModelData;
+@model ShoppingCartViewModel
+@{
+	ViewData["Title"] = "Shopping Cart Summary";
+}
+<div class="row">
+	<div class="col-md-8 offset-3">
+		<h2>Your Shopping Cart Summary</h2>
+	</div>
+	<div class="col-md-10 offset-1">
+		<table class="table">
+			<thead>
+				<tr class="text-center">
+					<th>Amount</th>
+					<th>Movie</th>
+					<th>Price</th>
+					<th>Total</th>
+					<th>Selected amount</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.shoppingCart.ShoppingCartItems)
+				{
+					<tr class="text-center">
+						<td class="align-middle">@item.Amount</td>
+						<td class="align-middle">@item.Movies.Name</td>
+						<td class="align-middle">@item.Movies.Price.ToString("c")</td>
+						<td class="align-middle">@((item.Movies.Price * item.Amount).ToString("c"))</td>
+						<td class="align-middle">
+							<a class="text-success" asp-controller="Order" asp-action="AddItemToShoppingCart"
+						   asp-route-id="@item.Movies.Id">
+								<i class="bi bi-cart-plus"> </i>
+							</a>
+							|
+							<a class="text-danger" asp-controller="Order" asp-action="RemoveFromShoppingCart"
+						   asp-route-id="@item.Movies.Id">
+								<i class="bi bi-cart-dash"> </i>
+							</a>
+						</td>
+
+					</tr>
+				}
+			</tbody>
+			<tfoot>
+				<tr class="text-center">
+					<td colspan="2"></td>
+					<td><b>Total:</b></td>
+					<td>
+						@Model.ShoppingCartTotal.ToString("c")
+					</td>
+					<td></td>
+				</tr>
+			</tfoot>
+		</table>
+		<div class="float-right">
+			<div class="btn-group">
+				<a class="btn btn-outline-primary" asp-controller="Movie" asp-action="Index">
+					Add More Items
+				</a>
+				<span style="padding:5px"></span>
+				<a class="btn btn-success" asp-controller="Order" asp-action="Payment">
+					Pay Now
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+	

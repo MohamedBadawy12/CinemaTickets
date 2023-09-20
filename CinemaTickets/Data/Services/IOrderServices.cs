@@ -6,7 +6,8 @@ namespace CinemaTickets.Data.Services
 {
 	public interface IOrderServices
 	{
-		Task SortOrderAsync(List<ShoppingCartItem> items, string userId, string userEmail);
+		Task StoreOrderAsync(List<ShoppingCartItem> items, string userId, string userEmail);
 		Task<List<Order>> GetOrderByUserId(string userId,string userRole);
+		//void RemoveOrder(int id);
 	}
 }

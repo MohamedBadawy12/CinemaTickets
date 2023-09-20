@@ -18,9 +18,9 @@
 									@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 									{
 										<a class="btn btn-outline-warning text-white float-right" style="margin:0px 0px 0px 20px"
-											 asp-controller="Movie" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square">Update</i></a>
+											 asp-controller="Movie" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
 										<a class="btn btn-danger text-white float-right"
-											asp-controller="Movie" asp-action="Delete" asp-route-id="@item.Id" onclick="ConfirmDelete()"><i class="bi bi-pencil-square">Delete</i></a>
+											asp-controller="Movie" asp-action="Delete" asp-route-id="@item.Id" onclick="ConfirmDelete()"><i class="bi bi-trash3"></i></a>
 									}
 								</h4>
 							</p>
@@ -57,7 +57,7 @@
 						<div class="card-footer">
 							<p class="card-text">
 								<a class="btn btn-success text-white @((DateTime.Now > item.TimeDate.EndTime) ? "disable":"")"
-								 asp-controller="Order" asp-action="AddItemToCart" asp-route-id="@item.Id">
+							   asp-controller="Order" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id">
 									<i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))
 								</a>
 								<a class="btn btn-outline-primary float-right " asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">

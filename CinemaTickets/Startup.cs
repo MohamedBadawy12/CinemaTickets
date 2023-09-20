@@ -1,9 +1,11 @@
 using CinemaTickets.Data;
+using CinemaTickets.Data.Cart;
 using CinemaTickets.Data.Services;
 using CinemaTickets.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +47,8 @@ namespace CinemaTickets
 			services.AddTransient<ICinemaService, CinemaServices>();
             services.AddTransient<IOrderServices, OrderServices>();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(c => ShoppingCart.GetShoppingCart(c));
             //Authentication and authorization
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             services.AddMemoryCache();
@@ -72,8 +76,9 @@ namespace CinemaTickets
             app.UseStaticFiles();
 
             app.UseRouting();
-			
-            app.UseAuthentication();
+			app.UseSession();
+
+			app.UseAuthentication();
 			app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

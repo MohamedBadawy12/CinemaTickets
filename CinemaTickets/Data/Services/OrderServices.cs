@@ -1,5 +1,6 @@
 ﻿using CinemaTickets.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace CinemaTickets.Data.Services
 			return Orders;
 		}
 
-		public async Task SortOrderAsync(List<ShoppingCartItem> items, string userId, string userEmail)
+		public async Task StoreOrderAsync(List<ShoppingCartItem> items, string userId, string userEmail)
 		{
 			var order = new Order()
 			{
@@ -46,5 +47,11 @@ namespace CinemaTickets.Data.Services
 			}
 			await _context.SaveChangesAsync();
 		}
+		//public void RemoveOrder(int id)
+		//{
+		//	 var order =  _context.Orders.FirstOrDefault(x => x.Id == id);
+		//	 _context.Orders.Remove(order);
+		//	 _context.SaveChangesAsync();
+		//}
 	}
 }

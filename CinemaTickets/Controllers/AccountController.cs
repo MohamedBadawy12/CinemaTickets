@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using CinemaTickets.Data.CodeOfRegister;
 
 namespace CinemaTickets.Controllers
 {
@@ -54,6 +55,15 @@ namespace CinemaTickets.Controllers
 		
 		}
 		//--------------------------------------------------------
+
+		public IActionResult CodeToRegister(CodeRegister codeRegister)
+		{
+			if (codeRegister.CodeNumber!=1907)
+			{
+				return View("CodeToRegister");	
+			}
+			return RedirectToAction("AddAdmin");
+		}
 		public IActionResult AddAdmin()
 		{
 			return View();
