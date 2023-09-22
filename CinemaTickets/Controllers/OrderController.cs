@@ -19,15 +19,13 @@ namespace CinemaTickets.Controllers
 		private readonly IOrderServices _orderServices;
         private readonly ShoppingCart _shoppingCart;
         private readonly AppDbContext _context;
-		private readonly IActorService _service;
 
-		public OrderController(IMovieService movieService,IOrderServices orderServices,ShoppingCart shoppingCart,AppDbContext context,IActorService service) 
+		public OrderController(IMovieService movieService,IOrderServices orderServices,ShoppingCart shoppingCart,AppDbContext context) 
 		{
 			_movieService = movieService;
 			_orderServices = orderServices;
             _shoppingCart = shoppingCart;
             _context = context;
-			_service = service;
 		}
 		public async Task<IActionResult> Index()
 		{
@@ -36,17 +34,16 @@ namespace CinemaTickets.Controllers
 			var orders = await _orderServices.GetOrderByUserId(userId,userRole);
 			return View(orders);
 		}
-		//public IActionResult DeleteOrder(int id)
+		//public IActionResult ClearAllData()
 		//{
-		//	string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-		//	string userRole = User.FindFirstValue(ClaimTypes.Role);
-		//	var orders =  _orderServices.GetOrderByUserId(userId, userRole);
-		//	var order = _service.GetByIdAsync(id);
-		//	if (orders == null&&order==null)
-		//		return View("NotFound");
-		//	_orderServices.RemoveOrder(id);
-		//	return RedirectToAction(nameof(Index));
+		//	foreach(var item in _context.Orders)
+		//	{
+		//		_context.Orders.Remove(item);
+		//	}
+		//	_context.SaveChanges();
+		//	return RedirectToAction("Index");	
 		//}
+		
 		public IActionResult ShoppingCart()
 		{
 			var items = _shoppingCart.GetShoppingCartItems();

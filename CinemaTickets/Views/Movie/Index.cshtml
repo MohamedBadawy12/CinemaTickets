@@ -56,7 +56,7 @@
 					<div class="col-md-12">
 						<div class="card-footer">
 							<p class="card-text">
-								<a class="btn btn-success text-white @((DateTime.Now > item.TimeDate.EndTime) ? "disable":"")"
+								<a class="btn btn-success text-white @((DateTime.Now > item.TimeDate.EndTime) ? "disabled":"")"
 							   asp-controller="Order" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id">
 									<i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))
 								</a>
@@ -71,6 +71,14 @@
 		</div>
 	}
 </div>
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+	<div style="position:fixed; right:25px; bottom:65px;" class="text-white">
+		<a asp-controller="Movie" asp-action="Create" class="btn btn-success">
+			<i class="bi bi-plus-circle"></i> Add New
+		</a>
+	</div>
+}
 
 <script>
 	function ConfirmDelete() {
